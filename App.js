@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import './globals.css';
 
-export default function App() {
+function App() {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return <Home />;
+      case 'profile':
+        return <Profile />;
+      default:
+        return <Home />;
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <div>
+      <nav>
+        <button onClick={() => setCurrentPage('home')}>Home</button>
+        <button onClick={() => setCurrentPage('profile')}>Profile</button>
+      </nav>
+      {renderPage()}
+    </div>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
